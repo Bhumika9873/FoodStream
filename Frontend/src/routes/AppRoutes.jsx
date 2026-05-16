@@ -7,7 +7,7 @@ import FoodPartnerRegister from '../pages/FoodPartnerRegister';
 import Home from '../pages/general/Home';
 import CreateFood from '../pages/food-partner/CreateFood';
 import Profile from '../pages/food-partner/Profile';
-import Landing from '../pages/general/Landing';
+import Landing from '../pages/general/Landing.jsx';
 
 const AppRoutes = () => {
     return (
