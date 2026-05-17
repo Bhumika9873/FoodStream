@@ -158,4 +158,4 @@ const Landing = () => {
     )
 }
 
-export default Temp
+export default Landing
