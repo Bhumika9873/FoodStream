@@ -108,46 +108,6 @@
   background: #e5e7eb;
 }
 
-/* FEATURES */
-
-.features-section {
-  width: 100%;
-  padding: 20px 30px;
-  height: 200px;
-  display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-  gap: 35px;
-}
-
-.feature-card {
-  background: #111827;
-  padding: 40px 30px;
-  height: 175px;
-  border-radius: 20px;
-  text-align: center;
-  transition: 0.3s;
-}
-
-.feature-card:hover {
-  transform: translateY(-10px);
-}
-
-.feature-icon {
-  font-size: 35px;
-  margin-bottom: 15px;
-}
-
-.feature-card h2 {
-  margin-bottom: 15px;
-  font-size: 20px;
-}
-
-.feature-card p {
-  color: #d1d5db;
-  line-height: 0.5;
-  padding-bottom: 50px;
-}
-
 /* CTA SECTION */
 
 .cta-section {

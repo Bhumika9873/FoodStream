@@ -68,51 +68,6 @@ const Landing = () => {
 
             </section>
 
-            {/* FEATURES */}
-
-            <section className="features-section">
-
-                <div className="feature-card">
-
-                    <div className="feature-icon">🍔</div>
-
-                    <h2>Food Reels</h2>
-
-                    <p>
-                        Watch short trending food videos
-                        from amazing creators.
-                    </p>
-
-                </div>
-
-                <div className="feature-card">
-
-                    <div className="feature-icon">❤️</div>
-
-                    <h2>Save Favorites</h2>
-
-                    <p>
-                        Save your favorite meals and restaurants
-                        in one place.
-                    </p>
-
-                </div>
-
-                <div className="feature-card">
-
-                    <div className="feature-icon">📹</div>
-
-                    <h2>Upload Content</h2>
-
-                    <p>
-                        Food partners can upload reels
-                        and grow their audience.
-                    </p>
-
-                </div>
-
-            </section>
-
             {/* CTA SECTION */}
 
             <section className="cta-section">
