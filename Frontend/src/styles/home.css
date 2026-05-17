@@ -46,7 +46,7 @@
 
 .hero-section {
   width: 100%;
-  min-height: 64vh;
+  min-height: 70vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -112,7 +112,7 @@
 
 .features-section {
   width: 100%;
-  padding: 30px 80px;
+  padding: 20px 30px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 35px;
@@ -149,7 +149,7 @@
 
 .cta-section {
   width: 100%;
-  padding: 40px 40px;
+  padding: 20px 20px;
   text-align: center;
   background: linear-gradient(to right, #f97316, #ea580c);
 }
@@ -178,7 +178,7 @@
 
 .footer {
   width: 100%;
-  padding: 60px 20px;
+  padding: 40px 20px;
   background: #111827;
   text-align: center;
 }
