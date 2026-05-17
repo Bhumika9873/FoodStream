@@ -134,7 +134,7 @@
 
 .feature-icon {
   font-size: 35px;
-  margin-bottom: 100px;
+  margin-bottom: 15px;
 }
 
 .feature-card h2 {
@@ -145,7 +145,7 @@
 .feature-card p {
   color: #d1d5db;
   line-height: 1;
-  padding-bottom: 20px;
+  padding-bottom: 40px;
 }
 
 /* CTA SECTION */
