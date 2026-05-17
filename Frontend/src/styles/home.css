@@ -144,8 +144,8 @@
 
 .feature-card p {
   color: #d1d5db;
-  line-height: 1;
-  padding-bottom: 40px;
+  line-height: 0.5;
+  padding-bottom: 50px;
 }
 
 /* CTA SECTION */
