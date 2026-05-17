@@ -122,6 +122,7 @@
 .feature-card {
   background: #111827;
   padding: 40px 30px;
+  height: 125px;
   border-radius: 20px;
   text-align: center;
   transition: 0.3s;
@@ -138,12 +139,12 @@
 
 .feature-card h2 {
   margin-bottom: 15px;
-  font-size: 28px;
+  font-size: 20px;
 }
 
 .feature-card p {
   color: #d1d5db;
-  line-height: 1.6;
+  line-height: 1.0;
 }
 
 /* CTA SECTION */
@@ -157,14 +158,14 @@
 }
 
 .cta-section h1 {
-  font-size: 50px;
-  margin-bottom: 25px;
+  font-size: 30px;
+  margin-bottom: 18px;
 }
 
 .cta-section p {
-  font-size: 20px;
+  font-size: 18px;
   margin-bottom: 40px;
-  line-height: 1.7;
+  line-height: 1.0;
 }
 
 .cta-btn {
