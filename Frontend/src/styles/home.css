@@ -113,6 +113,7 @@
 .features-section {
   width: 100%;
   padding: 20px 30px;
+  height: 200px;
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
   gap: 35px;
@@ -150,6 +151,7 @@
 .cta-section {
   width: 100%;
   padding: 20px 20px;
+  height: 200px;
   text-align: center;
   background: linear-gradient(to right, #f97316, #ea580c);
 }
