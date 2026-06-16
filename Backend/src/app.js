@@ -9,7 +9,7 @@ const path = require('path');
 const app = express();
 
 app.use(cors({
-    origin: 'https://food-stream.vercel.app/',
+    origin: 'https://food-stream.vercel.app',
     credentials: true,
 }));
 
