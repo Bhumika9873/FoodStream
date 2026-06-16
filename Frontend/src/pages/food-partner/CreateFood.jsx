@@ -67,7 +67,7 @@ const CreateFood = () => {
             formData.append('video', videoFile);
 
             const response = await axios.post(
-                'http://localhost:3000/api/food',
+                'https://foodstream-backend.onrender.com/api/food',
                 formData,
                 {
                     withCredentials: true,
