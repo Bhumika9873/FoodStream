@@ -25,7 +25,7 @@ const UserLogin = () => {
       );
 
       console.log("Login success:", response.data);
-      navigate("/"); // home page
+      navigate("/home"); // home page
 
     } catch (error) {
       console.error("Login error:", error.response?.data || error.message);
