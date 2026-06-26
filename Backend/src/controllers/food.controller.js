@@ -12,7 +12,7 @@ async function createFood(req, res) {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        const videoUrl = `http://localhost:3000/uploads/${req.file.filename}`;
+        const videoUrl = `https://foodstream-backend.onrender.com/uploads/${req.file.filename}`;
 
         const foodItem = await foodModel.create({
             name: req.body.name,
