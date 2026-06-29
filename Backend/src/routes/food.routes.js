@@ -4,13 +4,14 @@ const authMiddleware = require("../middlewares/auth.middleware");
 const router = express.Router();
 const multer = require('multer');
 const path = require('path');
+const { CloudinaryStorage } = require("multer-storage-cloudinary");
+const cloudinary = require("../config/cloudinary");
 
-const storage = multer.diskStorage({
-    destination: (req, file, cb) => {
-        cb(null, path.resolve(__dirname, '..', '..', '..', 'uploads'));
-    },
-    filename: (req, file, cb) => {
-        cb(null, Date.now() + path.extname(file.originalname));
+const storage = new CloudinaryStorage({
+    cloudinary,
+    params: {
+        folder: "FoodStream",
+        resource_type: "video"
     }
 });
 
