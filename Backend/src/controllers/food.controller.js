@@ -12,7 +12,14 @@ async function createFood(req, res) {
             return res.status(401).json({ message: "Unauthorized" });
         }
 
-        const videoUrl = req.file.path; // Get the video URL from Cloudinary
+        // DEBUG
+        console.log("========== FILE ==========");
+        console.log(req.file);
+        console.log("==========================");
+
+        const videoUrl = req.file.path;
+
+        console.log("Video URL:", videoUrl);
 
         const foodItem = await foodModel.create({
             name: req.body.name,
@@ -21,10 +28,13 @@ async function createFood(req, res) {
             foodPartner: req.foodPartner._id
         });
 
+        console.log("Saved in Mongo:", foodItem.video);
+
         res.status(201).json({
             message: "food created successfully",
             food: foodItem
         });
+
     } catch (error) {
         console.log(error);
         res.status(500).json({ message: "Server error" });
@@ -76,7 +86,6 @@ async function likeFood(req, res) {
         liked: true
     });
 }
-
 
 async function saveFood(req, res) {
     const { foodId } = req.body;
