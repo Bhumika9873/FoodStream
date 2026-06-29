@@ -17,9 +17,19 @@ const storage = new CloudinaryStorage({
 
 const upload = multer({ storage });
 
-router.post('/',
+router.post(
+    '/',
     authMiddleware.authFoodPartnerMiddleware,
     upload.single("video"),
+
+    // DEBUG MIDDLEWARE
+    (req, res, next) => {
+        console.log("========== FILE ==========");
+        console.log(req.file);
+        console.log("==========================");
+        next();
+    },
+
     foodController.createFood
 );
 
