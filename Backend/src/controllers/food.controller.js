@@ -5,21 +5,30 @@ const saveModel = require('../models/save.model');
 async function createFood(req, res) {
     try {
         if (!req.file) {
-            return res.status(400).json({ message: "Video file required" });
+            return res.status(400).json({
+                message: "Video file required"
+            });
         }
 
         if (!req.foodPartner) {
-            return res.status(401).json({ message: "Unauthorized" });
+            return res.status(401).json({
+                message: "Unauthorized"
+            });
         }
 
-        // DEBUG
         console.log("========== FILE ==========");
         console.log(req.file);
         console.log("==========================");
 
+        if (!req.file.path) {
+            return res.status(500).json({
+                message: "Cloudinary upload failed. No file path found."
+            });
+        }
+
         const videoUrl = req.file.path;
 
-        console.log("Video URL:", videoUrl);
+        console.log("Cloudinary URL:", videoUrl);
 
         const foodItem = await foodModel.create({
             name: req.body.name,
@@ -28,113 +37,159 @@ async function createFood(req, res) {
             foodPartner: req.foodPartner._id
         });
 
-        console.log("Saved in Mongo:", foodItem.video);
+        console.log("Saved in MongoDB:", foodItem.video);
 
-        res.status(201).json({
-            message: "food created successfully",
+        return res.status(201).json({
+            message: "Food created successfully",
             food: foodItem
         });
 
     } catch (error) {
-        console.log(error);
-        res.status(500).json({ message: "Server error" });
+        console.error("========== CREATE FOOD ERROR ==========");
+        console.error(error);
+        console.error("Message:", error.message);
+        console.error("Stack:", error.stack);
+
+        return res.status(500).json({
+            success: false,
+            message: error.message,
+            error: error
+        });
     }
 }
 
 async function getFoodItems(req, res) {
-    const foodItems = await foodModel.find({});
-    res.status(200).json({
-        message: "Food items fetched successfully",
-        foodItems
-    });
+    try {
+        const foodItems = await foodModel.find({});
+
+        res.status(200).json({
+            message: "Food items fetched successfully",
+            foodItems
+        });
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: error.message
+        });
+    }
 }
 
 async function likeFood(req, res) {
-    const { foodId } = req.body;
-    const user = req.user;
+    try {
+        const { foodId } = req.body;
+        const user = req.user;
 
-    const isAlreadyLiked = await likeModel.findOne({
-        user: user._id,
-        food: foodId
-    });
+        const isAlreadyLiked = await likeModel.findOne({
+            user: user._id,
+            food: foodId
+        });
 
-    if (isAlreadyLiked) {
-        await likeModel.deleteOne({
+        if (isAlreadyLiked) {
+            await likeModel.deleteOne({
+                user: user._id,
+                food: foodId
+            });
+
+            await foodModel.findByIdAndUpdate(foodId, {
+                $inc: { likeCount: -1 }
+            });
+
+            return res.status(200).json({
+                liked: false
+            });
+        }
+
+        await likeModel.create({
             user: user._id,
             food: foodId
         });
 
         await foodModel.findByIdAndUpdate(foodId, {
-            $inc: { likeCount: -1 }
+            $inc: { likeCount: 1 }
         });
 
-        return res.status(200).json({
-            liked: false
+        return res.status(201).json({
+            liked: true
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: error.message
         });
     }
-
-    await likeModel.create({
-        user: user._id,
-        food: foodId
-    });
-
-    await foodModel.findByIdAndUpdate(foodId, {
-        $inc: { likeCount: 1 }
-    });
-
-    return res.status(201).json({
-        liked: true
-    });
 }
 
 async function saveFood(req, res) {
-    const { foodId } = req.body;
-    const user = req.user;
+    try {
+        const { foodId } = req.body;
+        const user = req.user;
 
-    const isAlreadySaved = await saveModel.findOne({
-        user: user._id,
-        food: foodId
-    });
+        const isAlreadySaved = await saveModel.findOne({
+            user: user._id,
+            food: foodId
+        });
 
-    if (isAlreadySaved) {
-        await saveModel.deleteOne({
+        if (isAlreadySaved) {
+            await saveModel.deleteOne({
+                user: user._id,
+                food: foodId
+            });
+
+            await foodModel.findByIdAndUpdate(foodId, {
+                $inc: { savesCount: -1 }
+            });
+
+            return res.status(200).json({
+                message: "Food unsaved successfully"
+            });
+        }
+
+        const save = await saveModel.create({
             user: user._id,
             food: foodId
         });
 
         await foodModel.findByIdAndUpdate(foodId, {
-            $inc: { savesCount: -1 }
+            $inc: { savesCount: 1 }
         });
 
-        return res.status(200).json({
-            message: "Food unsaved successfully"
+        res.status(201).json({
+            message: "Food saved successfully",
+            save
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: error.message
         });
     }
-
-    const save = await saveModel.create({
-        user: user._id,
-        food: foodId
-    });
-
-    await foodModel.findByIdAndUpdate(foodId, {
-        $inc: { savesCount: 1 }
-    });
-
-    res.status(201).json({
-        message: "Food saved successfully",
-        save
-    });
 }
 
 async function getSaveFood(req, res) {
-    const user = req.user;
+    try {
+        const user = req.user;
 
-    const savedFoods = await saveModel.find({ user: user._id }).populate('food');
+        const savedFoods = await saveModel.find({
+            user: user._id
+        }).populate("food");
 
-    res.status(200).json({
-        message: "Saved foods retrieved successfully",
-        savedFoods
-    });
+        res.status(200).json({
+            message: "Saved foods retrieved successfully",
+            savedFoods
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: error.message
+        });
+    }
 }
 
 module.exports = {
