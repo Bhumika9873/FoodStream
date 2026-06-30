@@ -2,17 +2,17 @@ const express = require('express');
 const foodController = require("../controllers/food.controller");
 const authMiddleware = require("../middlewares/auth.middleware");
 const router = express.Router();
+
 const multer = require('multer');
-const path = require('path');
 const { CloudinaryStorage } = require("multer-storage-cloudinary");
 const cloudinary = require("../config/cloudinary");
 
 const storage = new CloudinaryStorage({
     cloudinary,
-    params: {
+    params: async (req, file) => ({
         folder: "FoodStream",
         resource_type: "video"
-    }
+    })
 });
 
 const upload = multer({ storage });
@@ -20,35 +20,46 @@ const upload = multer({ storage });
 router.post(
     '/',
     authMiddleware.authFoodPartnerMiddleware,
+
+    // DEBUG BEFORE MULTER
+    (req, res, next) => {
+        console.log("========== BEFORE MULTER ==========");
+        next();
+    },
+
     upload.single("video"),
 
-    // DEBUG MIDDLEWARE
+    // DEBUG AFTER MULTER
     (req, res, next) => {
-        console.log("========== FILE ==========");
+        console.log("========== AFTER MULTER ==========");
         console.log(req.file);
-        console.log("==========================");
+        console.log("==================================");
         next();
     },
 
     foodController.createFood
 );
 
-router.get("/",
+router.get(
+    "/",
     authMiddleware.authUserMiddleware,
     foodController.getFoodItems
 );
 
-router.post('/like',
+router.post(
+    '/like',
     authMiddleware.authUserMiddleware,
     foodController.likeFood
 );
 
-router.post('/save',
+router.post(
+    '/save',
     authMiddleware.authUserMiddleware,
     foodController.saveFood
 );
 
-router.get('/save',
+router.get(
+    '/save',
     authMiddleware.authUserMiddleware,
     foodController.getSaveFood
 );
