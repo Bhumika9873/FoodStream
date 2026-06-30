@@ -15,26 +15,43 @@ const storage = new CloudinaryStorage({
     })
 });
 
-const upload = multer({ storage });
+const upload = multer({
+    storage,
+    limits: {
+        fileSize: 100 * 1024 * 1024 // 100 MB
+    }
+});
 
 router.post(
     '/',
     authMiddleware.authFoodPartnerMiddleware,
 
-    // DEBUG BEFORE MULTER
     (req, res, next) => {
         console.log("========== BEFORE MULTER ==========");
         next();
     },
 
-    upload.single("video"),
-
-    // DEBUG AFTER MULTER
     (req, res, next) => {
-        console.log("========== AFTER MULTER ==========");
-        console.log(req.file);
-        console.log("==================================");
-        next();
+        upload.single("video")(req, res, function (err) {
+
+            if (err) {
+                console.error("========== MULTER/CLOUDINARY ERROR ==========");
+                console.error(err);
+                console.error("Message:", err.message);
+                console.error("Stack:", err.stack);
+
+                return res.status(500).json({
+                    success: false,
+                    message: err.message
+                });
+            }
+
+            console.log("========== AFTER MULTER ==========");
+            console.log(req.file);
+            console.log("=================================");
+
+            next();
+        });
     },
 
     foodController.createFood
