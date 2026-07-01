@@ -62,6 +62,10 @@ async function getFoodItems(req, res) {
     try {
         const foodItems = await foodModel.find({});
 
+        console.log("Total foods:", foodItems.length);
+        console.log("Latest:", foodItems[foodItems.length - 1]);
+
+
         res.status(200).json({
             message: "Food items fetched successfully",
             foodItems
