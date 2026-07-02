@@ -26,8 +26,19 @@ const FoodPartnerSchema = new mongoose.Schema({
         type: String,
         required: true,
     },
-})
 
-const foodPartnerModel = mongoose.model("foodpartner",FoodPartnerSchema);
+    totalMeals: {
+        type: Number,
+        default: 0
+    },
+
+    customersServed: {
+        type: Number,
+        default: 0
+    }
+
+});
+
+const foodPartnerModel = mongoose.model("foodpartner", FoodPartnerSchema);
 
 module.exports = foodPartnerModel;
