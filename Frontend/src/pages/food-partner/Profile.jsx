@@ -11,6 +11,7 @@ const Profile = () => {
     useEffect(() => {
         axios.get(`https://foodstream-backend.onrender.com/api/food-partner/${id}`, { withCredentials: true })
             .then(response => {
+                    console.log(response.data);   // <-- ye line add karo
                 setProfile(response.data.foodPartner)
                 setVideos(response.data.foodPartner.foodItems)
             })
