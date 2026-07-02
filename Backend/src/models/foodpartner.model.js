@@ -34,7 +34,7 @@ const FoodPartnerSchema = new mongoose.Schema({
 
     customersServed: {
         type: Number,
-        default: 0
+        default: 25
     }
 
 });
