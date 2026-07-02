@@ -1,6 +1,7 @@
 const foodModel = require('../models/food.model');
 const likeModel = require('../models/likes.models');
 const saveModel = require('../models/save.model');
+const commentModel = require("../models/comment.model");
 
 async function createFood(req, res) {
     try {
@@ -196,10 +197,80 @@ async function getSaveFood(req, res) {
     }
 }
 
+async function addComment(req, res) {
+    try {
+
+        const { foodId, text } = req.body;
+
+        if (!text || text.trim() === "") {
+            return res.status(400).json({
+                message: "Comment cannot be empty"
+            });
+        }
+
+        const comment = await commentModel.create({
+            food: foodId,
+            user: req.user._id,
+            text
+        });
+
+        await foodModel.findByIdAndUpdate(foodId, {
+            $inc: {
+                commentsCount: 1
+            }
+        });
+
+        res.status(201).json({
+            message: "Comment added successfully",
+            comment
+        });
+
+    } catch (error) {
+        console.error(error);
+
+        res.status(500).json({
+            message: error.message
+        });
+    }
+}
+
+async function getComments(req, res) {
+
+    try {
+
+        const { foodId } = req.params;
+
+        const comments = await commentModel
+            .find({
+                food: foodId
+            })
+            .populate("user", "name")
+            .sort({
+                createdAt: -1
+            });
+
+        res.status(200).json({
+            comments
+        });
+
+    } catch (error) {
+
+        console.error(error);
+
+        res.status(500).json({
+            message: error.message
+        });
+
+    }
+
+}
+
 module.exports = {
     createFood,
     getFoodItems,
     likeFood,
     saveFood,
-    getSaveFood
+    getSaveFood,
+    addComment,
+    getComments
 };

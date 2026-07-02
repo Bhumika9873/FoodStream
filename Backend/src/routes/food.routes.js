@@ -64,21 +64,37 @@ router.get(
 );
 
 router.post(
-    '/like',
+    "/like",
     authMiddleware.authUserMiddleware,
     foodController.likeFood
 );
 
 router.post(
-    '/save',
+    "/save",
     authMiddleware.authUserMiddleware,
     foodController.saveFood
 );
 
 router.get(
-    '/save',
+    "/save",
     authMiddleware.authUserMiddleware,
     foodController.getSaveFood
 );
+
+/* ================= COMMENTS ================= */
+
+router.post(
+    "/comment",
+    authMiddleware.authUserMiddleware,
+    foodController.addComment
+);
+
+router.get(
+    "/comment/:foodId",
+    authMiddleware.authUserMiddleware,
+    foodController.getComments
+);
+
+/* ============================================ */
 
 module.exports = router;
