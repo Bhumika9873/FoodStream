@@ -113,7 +113,7 @@
 .cta-section {
   width: 100%;
   padding: 20px 20px;
-  height: 200px;
+  min-height: 200px;
   text-align: center;
   background: linear-gradient(to right, #f97316, #ea580c);
 }
