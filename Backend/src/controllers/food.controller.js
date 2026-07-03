@@ -244,7 +244,7 @@ async function getComments(req, res) {
             .find({
                 food: foodId
             })
-            .populate("user", "fullname")
+            .populate("user", "fullName")
             .sort({
                 createdAt: -1
             });
