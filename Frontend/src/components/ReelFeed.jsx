@@ -308,7 +308,7 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
                   >
 
                     <strong>
-                      {comment.user?.name}
+                      {comment.user?.fullname}
                     </strong>
 
                     <p>
