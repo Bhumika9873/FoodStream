@@ -4,12 +4,22 @@ import '../../styles/reels.css'
 import ReelFeed from '../../components/ReelFeed'
 
 const Home = () => {
+
   const [videos, setVideos] = useState([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    axios.get("https://foodstream-backend.onrender.com/api/food", { withCredentials: true })
-      .then(res => setVideos(res.data.foodItems))
+    axios.get(
+      "https://foodstream-backend.onrender.com/api/food",
+      { withCredentials: true }
+    )
+      .then(res => {
+        setVideos(res.data.foodItems)
+      })
       .catch(err => console.log(err))
+      .finally(() => {
+        setLoading(false)
+      })
   }, [])
 
   async function likeVideo(item) {
@@ -26,7 +36,10 @@ const Home = () => {
           if (response.data.liked) {
             return { ...v, likeCount: (v.likeCount ?? 0) + 1 }
           } else {
-            return { ...v, likeCount: Math.max(0, (v.likeCount ?? 0) - 1) }
+            return {
+              ...v,
+              likeCount: Math.max(0, (v.likeCount ?? 0) - 1)
+            }
           }
         })
       )
@@ -46,13 +59,37 @@ const Home = () => {
       setVideos(prev =>
         prev.map(v =>
           v._id === item._id
-            ? { ...v, savesCount: res.data.save ? v.savesCount + 1 : v.savesCount - 1 }
+            ? {
+                ...v,
+                savesCount: res.data.save
+                  ? v.savesCount + 1
+                  : v.savesCount - 1
+              }
             : v
         )
       )
     } catch (err) {
       console.log("Save error", err)
     }
+  }
+
+  if (loading) {
+    return (
+      <div
+        style={{
+          height: "100vh",
+          display: "flex",
+          justifyContent: "center",
+          alignItems: "center",
+          background: "#000",
+          color: "#fff",
+          fontSize: "22px",
+          fontWeight: "bold"
+        }}
+      >
+        Loading...
+      </div>
+    )
   }
 
   return (
