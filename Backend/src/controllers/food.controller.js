@@ -220,6 +220,9 @@ async function addComment(req, res) {
             }
         });
 
+        const updatedFood = await foodModel.findById(foodId);
+        console.log("commentsCount =", updatedFood.commentsCount);
+
         res.status(201).json({
             message: "Comment added successfully",
             comment
