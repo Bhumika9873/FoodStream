@@ -21,6 +21,18 @@ const Home = () => {
         setLoading(false)
       })
   }, [])
+  function increaseCommentCount(foodId) {
+  setVideos(prev =>
+    prev.map(v =>
+      v._id === foodId
+        ? {
+            ...v,
+            commentsCount: (v.commentsCount ?? 0) + 1
+          }
+        : v
+    )
+  );
+}
 
   async function likeVideo(item) {
     try {
@@ -97,6 +109,7 @@ const Home = () => {
       items={videos}
       onLike={likeVideo}
       onSave={saveVideo}
+      onComment={increaseCommentCount}
       emptyMessage="No videos available."
     />
   )

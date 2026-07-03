@@ -3,7 +3,7 @@ import { Link } from 'react-router-dom'
 import axios from 'axios'
 import '../styles/reels.css'
 
-const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' }) => {
+const ReelFeed = ({ items = [], onLike, onSave, onComment, emptyMessage = 'No videos yet.' }) => {
 
   const videoRefs = useRef(new Map())
 
@@ -99,6 +99,9 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
       )
 
       setComments(res.data.comments)
+      if (onComment) {
+        onComment(selectedFood._id);
+      }
       setCommentText("")
 
     } catch (err) {
