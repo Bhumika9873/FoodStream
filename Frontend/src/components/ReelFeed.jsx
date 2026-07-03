@@ -53,7 +53,7 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
   }
 
   async function openComments(item) {
-    console.log("CLICKED", item._id);
+    
     setSelectedFood(item)
     setShowComments(true)
 
