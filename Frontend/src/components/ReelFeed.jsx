@@ -301,22 +301,16 @@ const ReelFeed = ({ items = [], onLike, onSave, emptyMessage = 'No videos yet.' 
 
               {
                 comments.map(comment => (
-
-                  <div
-                    key={comment._id}
-                    className="comment-item"
-                  >
-
-                    <strong>
-                      {comment.user?.fullname}
-                    </strong>
-
-                    <p>
-                      {comment.text}
-                    </p>
-
-                  </div>
-
+                <div
+                key={comment._id}
+                className="comment-item"
+                >
+                  <pre>
+                    {JSON.stringify(comment.user, null, 2)}
+                  </pre>
+                  <strong> {comment.user?.fullName} </strong>
+                  <p> {comment.text} </p>
+                </div>
                 ))
               }
 
