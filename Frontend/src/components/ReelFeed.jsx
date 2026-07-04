@@ -166,7 +166,7 @@ const ReelFeed = ({ items = [], onLike, onSave, onComment, emptyMessage = 'No vi
                         width="22"
                         height="22"
                         viewBox="0 0 24 24"
-                        fill="none"
+                        fill={item.liked ? "#ff3040" : "none"}
                         stroke="currentColor"
                         strokeWidth="2"
                         strokeLinecap="round"
@@ -198,7 +198,7 @@ const ReelFeed = ({ items = [], onLike, onSave, onComment, emptyMessage = 'No vi
                         width="22"
                         height="22"
                         viewBox="0 0 24 24"
-                        fill="none"
+                        fill={item.saved ? "#ffffff" : "none"}
                         stroke="currentColor"
                         strokeWidth="2"
                         strokeLinecap="round"

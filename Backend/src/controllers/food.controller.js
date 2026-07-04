@@ -60,24 +60,50 @@ async function createFood(req, res) {
 }
 
 async function getFoodItems(req, res) {
+
     try {
+
+        const user = req.user;
+
         const foodItems = await foodModel.find({});
 
-        console.log("Total foods:", foodItems.length);
-        console.log("Latest:", foodItems[foodItems.length - 1]);
+        const likedFoods = await likeModel.find({
+            user: user._id
+        });
 
+        const savedFoods = await saveModel.find({
+            user: user._id
+        });
+
+        const likedIds = likedFoods.map(item => item.food.toString());
+        const savedIds = savedFoods.map(item => item.food.toString());
+
+        const updatedFoods = foodItems.map(food => {
+
+            const obj = food.toObject();
+
+            obj.liked = likedIds.includes(food._id.toString());
+            obj.saved = savedIds.includes(food._id.toString());
+
+            return obj;
+
+        });
 
         res.status(200).json({
             message: "Food items fetched successfully",
-            foodItems
+            foodItems: updatedFoods
         });
+
     } catch (error) {
+
         console.error(error);
 
         res.status(500).json({
             message: error.message
         });
+
     }
+
 }
 
 async function likeFood(req, res) {

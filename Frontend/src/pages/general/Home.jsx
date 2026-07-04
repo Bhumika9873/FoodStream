@@ -45,14 +45,19 @@ const Home = () => {
       setVideos(prev =>
         prev.map(v => {
           if (v._id !== item._id) return v
-          if (response.data.liked) {
-            return { ...v, likeCount: (v.likeCount ?? 0) + 1 }
-          } else {
-            return {
-              ...v,
-              likeCount: Math.max(0, (v.likeCount ?? 0) - 1)
-            }
+         if (response.data.liked) {
+          return {
+            ...v, 
+            liked: true,
+            likeCount: (v.likeCount ?? 0) + 1
           }
+        } else {
+          return {
+            ...v,
+            liked: false,
+            likeCount: Math.max(0, (v.likeCount ?? 0) - 1)
+          }
+        }
         })
       )
     } catch (err) {
@@ -72,11 +77,12 @@ const Home = () => {
         prev.map(v =>
           v._id === item._id
             ? {
-                ...v,
-                savesCount: res.data.save
-                  ? v.savesCount + 1
-                  : v.savesCount - 1
-              }
+              ...v,
+              saved: !!res.data.save,
+              savesCount: res.data.save
+              ? (v.savesCount ?? 0) + 1
+              : Math.max(0, (v.savesCount ?? 0) - 1)
+            }
             : v
         )
       )
