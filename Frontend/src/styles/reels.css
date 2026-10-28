@@ -108,14 +108,21 @@
 }
 
 /* Right-side vertical actions (like, bookmark, comments) */
+/* Right-side vertical actions */
 .reel-actions {
   position: absolute;
   right: 10px;
-  bottom: 96px; /* above bottom CTA and nav */
+  bottom: 96px;
   display: flex;
   flex-direction: column;
   gap: 14px;
   pointer-events: auto;
+  z-index: 10000;
+}
+
+.reel-actions button {
+  pointer-events: auto;
+  cursor: pointer;
 }
 
 .reel-action {
