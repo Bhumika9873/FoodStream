@@ -220,12 +220,16 @@ const ReelFeed = ({ items = [], onLike, onSave, onComment, emptyMessage = 'No vi
                     <button
                       className="reel-action"
                       aria-label="Comments"
-                      onClick={() => {
-  console.log("COMMENT BUTTON CLICKED");
-  alert("Comment button clicked");
-  openComments(item);
-}}
+                      
                     >
+                      <button
+  type="button"
+  className="reel-action"
+  aria-label="Comments"
+  onClick={() => alert("CLICK WORKING")}
+>
+  TEST
+</button>
 
                       <svg
                         width="22"
