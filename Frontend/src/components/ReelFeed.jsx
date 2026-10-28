@@ -215,42 +215,33 @@ const ReelFeed = ({ items = [], onLike, onSave, onComment, emptyMessage = 'No vi
 
                   </div>
 
-                  <div className="reel-action-group">
+                  
+<div className="reel-action-group">
+  <button
+    type="button"
+    className="reel-action"
+    aria-label="Comments"
+    onClick={() => openComments(item)}
+  >
+    <svg
+      width="22"
+      height="22"
+      viewBox="0 0 24 24"
+      fill="none"
+      stroke="currentColor"
+      strokeWidth="2"
+      strokeLinecap="round"
+      strokeLinejoin="round"
+    >
+      <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
+    </svg>
+  </button>
 
-                    <button
-                      className="reel-action"
-                      aria-label="Comments"
-                      
-                    >
-                      <button
-  type="button"
-  className="reel-action"
-  aria-label="Comments"
-  onClick={() => alert("CLICK WORKING")}
->
-  TEST
-</button>
+  <div className="reel-action__count">
+    {item.commentsCount ?? 0}
+  </div>
+</div>
 
-                      <svg
-                        width="22"
-                        height="22"
-                        viewBox="0 0 24 24"
-                        fill="none"
-                        stroke="currentColor"
-                        strokeWidth="2"
-                        strokeLinecap="round"
-                        strokeLinejoin="round"
-                      >
-                        <path d="M21 15a4 4 0 0 1-4 4H8l-5 3V7a4 4 0 0 1 4-4h10a4 4 0 0 1 4 4z" />
-                      </svg>
-
-                    </button>
-
-                    <div className="reel-action__count">
-                      {item.commentsCount ?? 0}
-                    </div>
-
-                  </div>
 
                 </div>
 
